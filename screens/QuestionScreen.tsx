@@ -62,6 +62,7 @@ const QuestionScreen = ({ navigation }: QuestionScreenProps) => {
   }
 
   const handleVerifyQuestion = (result: boolean) => {
+    console.log('result', result)
     setAnswered(true)
     const response = { quetion: questions[questionCounter].question, result }
     dispatch(addResponse(response))
@@ -72,11 +73,14 @@ const QuestionScreen = ({ navigation }: QuestionScreenProps) => {
   }
 
   return (
-    <View style={styles.container}>
+    <>
       {isLoading ? (
-        <ActivityIndicator />
+        <View style={styles.indicatorContainer}>
+          <ActivityIndicator size={'large'} />
+          <Text style={styles.indicatorText}>Loading...</Text>
+        </View>
       ) : (
-        <>
+        <View style={styles.container}>
           <RemainingQuestions
             counter={questionCounter + 1}
             total={questions.length}
@@ -97,9 +101,9 @@ const QuestionScreen = ({ navigation }: QuestionScreenProps) => {
               <Button title='Next Question' onPress={handleNextQuestion} />
             )}
           </View>
-        </>
+        </View>
       )}
-    </View>
+    </>
   )
 }
 
@@ -112,6 +116,14 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     marginTop: 40,
+  },
+  indicatorContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  indicatorText: {
+    fontSize: 25,
   },
 })
 

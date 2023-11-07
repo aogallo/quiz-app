@@ -7,11 +7,13 @@ export interface ResponseType {
 }
 
 interface ResponseSliceType {
-  responses: ResponseType[]
+  data: ResponseType[]
+  totalScore: number
 }
 
 const initialState: ResponseSliceType = {
-  responses: [],
+  data: [],
+  totalScore: 0,
 }
 
 export const responseSlice = createSlice({
@@ -19,7 +21,11 @@ export const responseSlice = createSlice({
   initialState,
   reducers: {
     addResponse: (state, action: PayloadAction<ResponseType>) => {
-      state.responses.push({ ...action.payload })
+      console.log(action.payload)
+      state.data.push({ ...action.payload })
+    },
+    incrementScore: (state) => {
+      state.totalScore += 10
     },
   },
 })

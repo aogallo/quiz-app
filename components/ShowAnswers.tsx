@@ -27,17 +27,21 @@ const ShowAnswers = ({
       {answers.map((answer: string) => (
         <Pressable
           disabled={answered}
-          style={[
-            styles.buttonContainer,
-            answered
-              ? response === answer
-                ? correctAnswer === answer
-                  ? styles.successAnswer
-                  : styles.errorAnswer
-                : styles.buttonContainer
-              : styles.buttonContainer,
-            ,
-          ]}
+          style={({ pressed }) =>
+            pressed
+              ? [styles.buttonContainer, styles.pressed]
+              : [
+                  styles.buttonContainer,
+                  answered
+                    ? response === answer
+                      ? correctAnswer === answer
+                        ? styles.successAnswer
+                        : styles.errorAnswer
+                      : styles.buttonContainer
+                    : styles.buttonContainer,
+                  ,
+                ]
+          }
           key={answer}
           onPress={() => handlePress(answer)}
         >
@@ -86,6 +90,9 @@ const styles = StyleSheet.create({
   },
   text: {
     color: 'white',
+  },
+  pressed: {
+    opacity: 0.75,
   },
 })
 

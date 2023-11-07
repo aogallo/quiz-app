@@ -1,4 +1,5 @@
 import { QuestionType } from '../screens/QuestionScreen'
+import { formatString } from '../util/formatString'
 
 export const getQuestions = async () => {
   try {
@@ -7,13 +8,16 @@ export const getQuestions = async () => {
     )
     const json = await response.json()
     const data = json.results.map((question: QuestionType) => {
-      const answers = [...question.incorrect_answers, question.correct_answer]
+      const incorrect_answers = question.incorrect_answers.map((answer) =>
+        formatString(answer),
+      )
+      const correct_answer = formatString(question.correct_answer)
+      const answers = [...incorrect_answers, correct_answer]
 
       return {
         ...question,
-        question: question.question
-          .replace(/&quot;/g, '"')
-          .replace(/&#039;/g, "'"),
+        question: formatString(question.question),
+        correct_answer,
         all_answers: answers.sort(() => Math.random() - 0.5),
       }
     })
