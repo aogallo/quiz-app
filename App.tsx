@@ -1,11 +1,10 @@
 import { NavigationContainer } from '@react-navigation/native'
-import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import LoginScreen from './screens/LoginScreen'
-import WelcomeScreen from './screens/WelcomeScreen'
-import QuestionScreen from './screens/QuestionScreen'
-import FinishScreen from './screens/FinishScreen'
 import { Provider } from 'react-redux'
 import { store } from './store/store'
+import Navigator from './navigation/Navigator'
+import { useFonts } from 'expo-font'
+import { useCallback } from 'react'
+import * as SplashScreen from 'expo-splash-screen'
 
 export type RootStackParamList = {
   Login: undefined
@@ -14,36 +13,27 @@ export type RootStackParamList = {
   FinishQuiz: undefined
 }
 
-const Stack = createNativeStackNavigator<RootStackParamList>()
+SplashScreen.preventAutoHideAsync()
 
 export default function App() {
-  const isSignedIn = true
+  const [fontsLoaded] = useFonts({
+    'baloo-2': require('./assets/Baloo2.ttf'),
+  })
+
+  const onLayoutRootView = useCallback(async () => {
+    if (fontsLoaded) {
+      await SplashScreen.hideAsync()
+    }
+  }, [fontsLoaded])
+
+  if (!fontsLoaded) {
+    return null
+  }
+
   return (
     <Provider store={store}>
       <NavigationContainer>
-        <Stack.Navigator>
-          {isSignedIn ? (
-            <>
-              <Stack.Screen
-                name='Welcome'
-                component={WelcomeScreen}
-                options={{ headerShown: false }}
-              />
-              <Stack.Screen
-                name='Questions'
-                component={QuestionScreen}
-                options={{}}
-              />
-              <Stack.Screen
-                name='FinishQuiz'
-                component={FinishScreen}
-                options={{ headerShown: false }}
-              />
-            </>
-          ) : (
-            <Stack.Screen name='Login' component={LoginScreen} />
-          )}
-        </Stack.Navigator>
+        <Navigator onLayout={onLayoutRootView} />
       </NavigationContainer>
     </Provider>
   )
