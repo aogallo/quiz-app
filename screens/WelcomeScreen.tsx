@@ -1,12 +1,11 @@
-import { Pressable, StyleSheet, Text, View } from 'react-native'
 import type { NativeStackScreenProps } from '@react-navigation/native-stack'
+import { Pressable, StyleSheet, Text, View } from 'react-native'
 import { RootStackParamList } from '../App'
 
 type WelcomeScreenProps = NativeStackScreenProps<RootStackParamList, 'Welcome'>
 
 const WelcomeScreen = ({ navigation }: WelcomeScreenProps) => {
   const handlePress = () => {
-    console.warn('hola')
     navigation.navigate('Questions')
   }
 
@@ -26,6 +25,7 @@ const WelcomeScreen = ({ navigation }: WelcomeScreenProps) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    padding: 10,
     alignItems: 'center',
     justifyContent: 'center',
   },

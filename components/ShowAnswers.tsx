@@ -1,15 +1,54 @@
+import { useState } from 'react'
 import { Pressable, StyleSheet, Text, View } from 'react-native'
 
 interface ShowAnswersProps {
   answers: string[]
+  correctAnswer: string
+  answered: boolean
+  onVerifyQuestion(response: boolean): void
 }
 
-const ShowAnswers = ({ answers }: ShowAnswersProps) => {
+const ShowAnswers = ({
+  answers,
+  correctAnswer,
+  answered,
+  onVerifyQuestion,
+}: ShowAnswersProps) => {
+  const [response, setResponse] = useState('')
+
+  const handlePress = (answer: string) => {
+    const response = correctAnswer === answer
+    onVerifyQuestion(response)
+    setResponse(answer)
+  }
+
   return (
     <View style={styles.container}>
       {answers.map((answer: string) => (
-        <Pressable style={styles.buttonContainer} key={answer}>
-          <Text style={styles.text}>{answer}</Text>
+        <Pressable
+          disabled={answered}
+          style={[
+            styles.buttonContainer,
+            answered
+              ? response === answer
+                ? correctAnswer === answer
+                  ? styles.successAnswer
+                  : styles.errorAnswer
+                : styles.buttonContainer
+              : styles.buttonContainer,
+            ,
+          ]}
+          key={answer}
+          onPress={() => handlePress(answer)}
+        >
+          <Text
+            style={[
+              styles.commonText,
+              answered && response === answer && styles.text,
+            ]}
+          >
+            {answer}
+          </Text>
         </Pressable>
       ))}
     </View>
@@ -18,6 +57,7 @@ const ShowAnswers = ({ answers }: ShowAnswersProps) => {
 
 const styles = StyleSheet.create({
   container: {
+    marginTop: 50,
     gap: 10,
     alignItems: 'center',
     justifyContent: 'center',
@@ -28,9 +68,25 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 10,
     height: 50,
-    width: 150,
-    rowGap: 10,
+    width: 350,
   },
-  text: {},
+  successAnswer: {
+    backgroundColor: '#47B225',
+    borderWidth: 1,
+    borderColor: '#47B225',
+  },
+  errorAnswer: {
+    backgroundColor: '#C1292E',
+    borderWidth: 1,
+    borderColor: '#C1292E',
+  },
+  commonText: {
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
+  text: {
+    color: 'white',
+  },
 })
+
 export default ShowAnswers

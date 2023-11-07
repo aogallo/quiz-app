@@ -5,11 +5,13 @@ import { StyleSheet, View } from 'react-native'
 import LoginScreen from './screens/LoginScreen'
 import WelcomeScreen from './screens/WelcomeScreen'
 import QuestionScreen from './screens/QuestionScreen'
+import FinishScreen from './screens/FinishScreen'
 
 export type RootStackParamList = {
   Login: undefined
   Welcome: undefined
   Questions: undefined
+  FinishQuiz: undefined
 }
 
 const Stack = createNativeStackNavigator<RootStackParamList>()
@@ -31,6 +33,7 @@ export default function App() {
               component={QuestionScreen}
               options={{}}
             />
+            <Stack.Screen name='FinishQuiz' component={FinishScreen} />
           </>
         ) : (
           <Stack.Screen name='Login' component={LoginScreen} />
