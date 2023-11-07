@@ -16,6 +16,9 @@ const LoginScreen = () => {
 
   return (
     <View style={styles.container}>
+      <View style={styles.logoContainer}>
+        <Text style={styles.logoText}>Quiz App</Text>
+      </View>
       <View style={styles.inputContainer}>
         <TextInput
           style={styles.input}
@@ -79,6 +82,18 @@ const styles = StyleSheet.create({
   input: {
     color: 'white',
     fontFamily: 'baloo-2',
+    fontSize: 20,
+  },
+  logoContainer: {
+    backgroundColor: 'white',
+    width: 100,
+    height: 100,
+    borderRadius: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 0,
+  },
+  logoText: {
     fontSize: 20,
   },
 })
