@@ -1,9 +1,11 @@
-import { Ionicons } from '@expo/vector-icons'
 import type { NativeStackScreenProps } from '@react-navigation/native-stack'
-import { Pressable, StyleSheet, Text, View } from 'react-native'
-import { useSelector } from 'react-redux'
+import { Pressable, ScrollView, StyleSheet, Text } from 'react-native'
+import { SafeAreaView } from 'react-native-safe-area-context'
+import { useDispatch, useSelector } from 'react-redux'
 import { RootStackParamList } from '../App'
+import QuestionResult from '../components/QuestionResult'
 import { Colors } from '../constants/Colors'
+import { cleanResponse } from '../store/slices/responseSlice'
 import { RootState } from '../store/store'
 
 type FinishScreenProps = NativeStackScreenProps<
@@ -13,63 +15,56 @@ type FinishScreenProps = NativeStackScreenProps<
 
 const FinishScreen = ({ navigation }: FinishScreenProps) => {
   const responses = useSelector((state: RootState) => state.responses.data)
+  const totalScore = useSelector(
+    (state: RootState) => state.responses.totalScore,
+  )
+  const dispatch = useDispatch()
+
   const handleFinish = () => {
+    dispatch(cleanResponse())
     navigation.navigate('Welcome')
   }
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Results</Text>
-      {responses.map((response) => (
-        <View key={response.quetion}>
-          <View style={styles.containerIcons}>
-            <Text style={styles.questionText}>{response.quetion}</Text>
-            <Ionicons
-              name='close-circle-outline'
-              size={24}
-              color={!response.result ? 'red' : 'black'}
-            />
-            <Ionicons
-              name='checkmark-circle-outline'
-              size={24}
-              color={response.result ? 'green' : 'black'}
-            />
-          </View>
-        </View>
-      ))}
-      <Text style={styles.title}>Total</Text>
-      <Pressable
-        android_ripple={{ color: '#ccc' }}
-        onPress={handleFinish}
-        style={({ pressed }) =>
-          pressed ? [styles.button, styles.pressed] : styles.button
-        }
-      >
-        <Text>Play again</Text>
-      </Pressable>
-    </View>
+    <SafeAreaView style={styles.outerContainer}>
+      <ScrollView style={styles.container}>
+        <Text style={styles.title}>Results</Text>
+        {responses.map((response) => (
+          <QuestionResult
+            key={response.question}
+            question={response.question}
+            result={response.result}
+          />
+        ))}
+        <Text style={[styles.title, styles.totalText]}>
+          Total: {totalScore}
+        </Text>
+        <Pressable
+          android_ripple={{ color: '#ccc' }}
+          onPress={handleFinish}
+          style={({ pressed }) =>
+            pressed ? [styles.button, styles.pressed] : styles.button
+          }
+        >
+          <Text style={styles.playAgainText}>Play again</Text>
+        </Pressable>
+      </ScrollView>
+    </SafeAreaView>
   )
 }
 
 const styles = StyleSheet.create({
+  outerContainer: { flex: 1 },
   container: {
-    flex: 1,
+    marginTop: 5,
     padding: 10,
-    gap: 10,
   },
   button: {
     backgroundColor: Colors.secondary,
     padding: 10,
     alignItems: 'center',
     borderRadius: 10,
-    marginHorizontal: 15,
-  },
-  questionText: {
-    width: '75%',
-  },
-  containerIcons: {
-    flexDirection: 'row',
-    gap: 8,
+    marginVertical: 10,
   },
   pressed: {
     opacity: 0.75,
@@ -77,6 +72,16 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 25,
     textAlign: 'center',
+    marginBottom: 10,
+  },
+  totalText: {
+    marginTop: 10,
+  },
+  playAgainText: {
+    color: 'white',
+    fontWeight: 'bold',
+    fontSize: 20,
   },
 })
+
 export default FinishScreen

@@ -1,6 +1,5 @@
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import { StyleSheet } from 'react-native'
 import LoginScreen from './screens/LoginScreen'
 import WelcomeScreen from './screens/WelcomeScreen'
 import QuestionScreen from './screens/QuestionScreen'
@@ -35,7 +34,11 @@ export default function App() {
                 component={QuestionScreen}
                 options={{}}
               />
-              <Stack.Screen name='FinishQuiz' component={FinishScreen} />
+              <Stack.Screen
+                name='FinishQuiz'
+                component={FinishScreen}
+                options={{ headerShown: false }}
+              />
             </>
           ) : (
             <Stack.Screen name='Login' component={LoginScreen} />
@@ -45,9 +48,3 @@ export default function App() {
     </Provider>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-})

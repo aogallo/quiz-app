@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderWidth: 1,
     borderRadius: 10,
-    height: 50,
+    height: 70,
     width: 350,
   },
   successAnswer: {
@@ -87,6 +87,8 @@ const styles = StyleSheet.create({
   commonText: {
     fontSize: 20,
     fontWeight: 'bold',
+    textAlign: 'center',
+    padding: 10,
   },
   text: {
     color: 'white',

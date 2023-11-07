@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 
 export interface ResponseType {
-  quetion: string
+  question: string
   result: boolean
 }
 
@@ -21,14 +21,17 @@ export const responseSlice = createSlice({
   initialState,
   reducers: {
     addResponse: (state, action: PayloadAction<ResponseType>) => {
-      console.log(action.payload)
       state.data.push({ ...action.payload })
     },
     incrementScore: (state) => {
       state.totalScore += 10
     },
+    cleanResponse: (state) => {
+      state.data = []
+    },
   },
 })
 
-export const { addResponse } = responseSlice.actions
+export const { addResponse, incrementScore, cleanResponse } =
+  responseSlice.actions
 export default responseSlice.reducer

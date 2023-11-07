@@ -1,5 +1,5 @@
 import type { NativeStackScreenProps } from '@react-navigation/native-stack'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import {
   ActivityIndicator,
   Alert,
@@ -13,7 +13,11 @@ import { RootStackParamList } from '../App'
 import RemainingQuestions from '../components/RemainingQuestions'
 import ShowAnswers from '../components/ShowAnswers'
 import useApi from '../hooks/useApi'
-import { addResponse } from '../store/slices/responseSlice'
+import {
+  addResponse,
+  cleanResponse,
+  incrementScore,
+} from '../store/slices/responseSlice'
 
 export interface QuestionType {
   category: string
@@ -36,6 +40,10 @@ const QuestionScreen = ({ navigation }: QuestionScreenProps) => {
   const [answered, setAnswered] = useState(false)
   const dispatch = useDispatch()
 
+  useEffect(() => {
+    dispatch(cleanResponse())
+  }, [])
+
   const handleNextQuestion = () => {
     if (!answered) {
       Alert.alert('', 'Are your sure to move to another question?', [
@@ -45,7 +53,7 @@ const QuestionScreen = ({ navigation }: QuestionScreenProps) => {
             setQuestionCounter(questionCounter + 1)
             setAnswered(false)
             const response = {
-              quetion: questions[questionCounter].question,
+              question: questions[questionCounter].question,
               result: false,
             }
             dispatch(addResponse(response))
@@ -62,10 +70,12 @@ const QuestionScreen = ({ navigation }: QuestionScreenProps) => {
   }
 
   const handleVerifyQuestion = (result: boolean) => {
-    console.log('result', result)
     setAnswered(true)
-    const response = { quetion: questions[questionCounter].question, result }
+    const response = { question: questions[questionCounter].question, result }
     dispatch(addResponse(response))
+    if (result) {
+      dispatch(incrementScore())
+    }
   }
 
   const handleFinish = () => {
