@@ -8,10 +8,12 @@ import {
   Text,
   View,
 } from 'react-native'
+import { useDispatch } from 'react-redux'
 import { RootStackParamList } from '../App'
 import RemainingQuestions from '../components/RemainingQuestions'
 import ShowAnswers from '../components/ShowAnswers'
 import useApi from '../hooks/useApi'
+import { addResponse } from '../store/slices/responseSlice'
 
 export interface QuestionType {
   category: string
@@ -23,11 +25,6 @@ export interface QuestionType {
   all_answers: string[]
 }
 
-interface QuestionAnsweredType {
-  quetion: string
-  result: boolean
-}
-
 type QuestionScreenProps = NativeStackScreenProps<
   RootStackParamList,
   'Questions'
@@ -35,11 +32,9 @@ type QuestionScreenProps = NativeStackScreenProps<
 
 const QuestionScreen = ({ navigation }: QuestionScreenProps) => {
   const { questions, isLoading } = useApi()
-  const [questionsAnswered, setQuestionsAnswered] = useState<
-    QuestionAnsweredType[]
-  >([])
   const [questionCounter, setQuestionCounter] = useState(0)
   const [answered, setAnswered] = useState(false)
+  const dispatch = useDispatch()
 
   const handleNextQuestion = () => {
     if (!answered) {
@@ -49,10 +44,11 @@ const QuestionScreen = ({ navigation }: QuestionScreenProps) => {
           onPress: () => {
             setQuestionCounter(questionCounter + 1)
             setAnswered(false)
-            setQuestionsAnswered([
-              ...questionsAnswered,
-              { quetion: questions[questionCounter].question, result: false },
-            ])
+            const response = {
+              quetion: questions[questionCounter].question,
+              result: false,
+            }
+            dispatch(addResponse(response))
           },
           style: 'cancel',
         },
@@ -65,12 +61,10 @@ const QuestionScreen = ({ navigation }: QuestionScreenProps) => {
     }
   }
 
-  const handleVerifyQuestion = (response: boolean) => {
+  const handleVerifyQuestion = (result: boolean) => {
     setAnswered(true)
-    setQuestionsAnswered([
-      ...questionsAnswered,
-      { quetion: questions[questionCounter].question, result: response },
-    ])
+    const response = { quetion: questions[questionCounter].question, result }
+    dispatch(addResponse(response))
   }
 
   const handleFinish = () => {
