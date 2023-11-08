@@ -52,8 +52,8 @@ const styles = StyleSheet.create({
   commonText: {
     color: 'white',
     fontFamily: 'baloo-2',
-    fontSize: 18,
-    fontWeight: 'bold',
+    fontSize: 25,
+    fontWeight: '900',
   },
 })
 

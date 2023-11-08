@@ -9,13 +9,13 @@ const QuestionResult = ({ question, result }: ResponseType) => {
         <Text style={styles.questionText}>{question}</Text>
         <Ionicons
           name='close-circle-outline'
-          size={30}
+          size={25}
           color={!result ? 'red' : 'black'}
         />
         <Ionicons
           name='checkmark-circle-outline'
-          size={30}
-          color={result ? 'green' : 'black'}
+          size={25}
+          color={result ? '#A8DF8E' : 'black'}
         />
       </View>
     </View>
@@ -24,11 +24,17 @@ const QuestionResult = ({ question, result }: ResponseType) => {
 
 const styles = StyleSheet.create({
   questionText: {
-    fontSize: 17,
+    fontSize: 15,
     width: '75%',
     fontFamily: 'baloo-2',
   },
   container: {
+    elevation: 2,
+    paddingVertical: 5,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 20,
+    backgroundColor: 'white',
     flexDirection: 'row',
     gap: 8,
     marginVertical: 5,
