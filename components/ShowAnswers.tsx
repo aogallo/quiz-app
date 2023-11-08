@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Pressable, StyleSheet, Text, View } from 'react-native'
+import { Colors } from '../constants/Colors'
 
 interface ShowAnswersProps {
   answers: string[]
@@ -48,7 +49,8 @@ const ShowAnswers = ({
           <Text
             style={[
               styles.commonText,
-              answered && response === answer && styles.text,
+              answered &&
+                response === answer && [styles.commonText, styles.text],
             ]}
           >
             {answer}
@@ -67,28 +69,30 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   buttonContainer: {
+    backgroundColor: 'white',
     alignItems: 'center',
     justifyContent: 'center',
-    borderWidth: 1,
+    // borderWidth: 1,
     borderRadius: 10,
     height: 70,
-    width: 350,
+    width: 383,
   },
   successAnswer: {
-    backgroundColor: '#47B225',
+    backgroundColor: Colors.primary600,
     borderWidth: 1,
-    borderColor: '#47B225',
+    borderColor: Colors.primary600,
   },
   errorAnswer: {
-    backgroundColor: '#C1292E',
+    backgroundColor: Colors.danger,
     borderWidth: 1,
-    borderColor: '#C1292E',
+    borderColor: Colors.danger,
   },
   commonText: {
     fontSize: 20,
     fontWeight: 'bold',
     textAlign: 'center',
     padding: 10,
+    fontFamily: 'baloo-2',
   },
   text: {
     color: 'white',

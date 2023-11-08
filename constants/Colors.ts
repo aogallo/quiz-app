@@ -3,4 +3,5 @@ export const Colors = {
   primary700: '#004643B2',
   primary800: '#004643',
   secondary: '#F8C660',
+  danger: '#B8474B',
 }

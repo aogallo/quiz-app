@@ -4,6 +4,7 @@ import {
   ActivityIndicator,
   Alert,
   Button,
+  Pressable,
   StyleSheet,
   Text,
   View,
@@ -18,6 +19,9 @@ import {
   cleanResponse,
   incrementScore,
 } from '../store/slices/responseSlice'
+import { Colors } from '../constants/Colors'
+import CustomPressable from '../components/CustomPressable'
+import Card from '../components/Card'
 
 export interface QuestionType {
   category: string
@@ -46,7 +50,7 @@ const QuestionScreen = ({ navigation }: QuestionScreenProps) => {
 
   const handleNextQuestion = () => {
     if (!answered) {
-      Alert.alert('', 'Are your sure to move to another question?', [
+      Alert.alert('', 'Are your sure to move another question?', [
         {
           text: 'Yes',
           onPress: () => {
@@ -95,9 +99,11 @@ const QuestionScreen = ({ navigation }: QuestionScreenProps) => {
             counter={questionCounter + 1}
             total={questions.length}
           />
-          <Text style={styles.questionText}>
-            {questions[questionCounter].question}
-          </Text>
+          <Card>
+            <Text style={styles.questionText}>
+              {questions[questionCounter].question}
+            </Text>
+          </Card>
           <ShowAnswers
             onVerifyQuestion={handleVerifyQuestion}
             answered={answered}
@@ -106,9 +112,12 @@ const QuestionScreen = ({ navigation }: QuestionScreenProps) => {
           />
           <View style={styles.buttonContainer}>
             {questionCounter + 1 === questions.length ? (
-              <Button title='Finish the quiz' onPress={handleFinish} />
+              <CustomPressable text='Finish the Quiz' onPress={handleFinish} />
             ) : (
-              <Button title='Next Question' onPress={handleNextQuestion} />
+              <CustomPressable
+                text='Next Question'
+                onPress={handleNextQuestion}
+              />
             )}
           </View>
         </View>
@@ -119,13 +128,16 @@ const QuestionScreen = ({ navigation }: QuestionScreenProps) => {
 
 const styles = StyleSheet.create({
   container: {
-    padding: 10,
+    padding: 20,
   },
   questionText: {
-    fontSize: 25,
+    fontWeight: 'bold',
+    fontSize: 18,
+    fontFamily: 'baloo-2',
   },
   buttonContainer: {
     marginTop: 40,
+    width: '100%',
   },
   indicatorContainer: {
     flex: 1,
