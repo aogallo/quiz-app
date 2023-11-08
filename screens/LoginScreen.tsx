@@ -1,49 +1,79 @@
 import { useState } from 'react'
 import {
-  Button,
+  ActivityIndicator,
   Pressable,
   StyleSheet,
   Text,
-  TextInput,
   View,
 } from 'react-native'
-import { FontAwesome } from '@expo/vector-icons'
 import { Colors } from '../constants/Colors'
+import { useLogin } from '../hooks/useLogin'
+import CustomTextInput from '../components/CustomTextInput'
 
 const LoginScreen = () => {
+  const { isLoading, error, authentication } = useLogin()
+  const [inputErrors, setInputErrors] = useState({ username: '', password: '' })
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
+
+  const handleLogin = () => {
+    setInputErrors({ username: '', password: '' })
+    if (username.trim() === '') {
+      setInputErrors((prevState) => {
+        return { ...prevState, username: 'The username is required.' }
+      })
+      return
+    }
+
+    if (password.trim() === '') {
+      setInputErrors((prevState) => {
+        return { ...prevState, password: 'The password is required.' }
+      })
+      return
+    }
+
+    setInputErrors({ username: '', password: '' })
+    authentication(username, password)
+  }
 
   return (
     <View style={styles.container}>
       <View style={styles.logoContainer}>
         <Text style={styles.logoText}>Quiz App</Text>
       </View>
-      <View style={styles.inputContainer}>
-        <TextInput
-          style={styles.input}
-          placeholder='Username'
-          placeholderTextColor={'white'}
-          value={username}
-          onChangeText={setUsername}
-        />
+      <CustomTextInput
+        value={username}
+        onChangeText={setUsername}
+        placeholder='Username'
+        error={inputErrors.username}
+      />
+
+      <CustomTextInput
+        value={password}
+        onChangeText={setPassword}
+        placeholder='Password'
+        error={inputErrors.password}
+        secureTextEntry
+      />
+
+      <View>
+        <Text style={styles.errorText}>{error}</Text>
       </View>
-      <View style={styles.inputContainer}>
-        <TextInput
-          style={styles.input}
-          placeholder='Password'
-          secureTextEntry
-          placeholderTextColor={'white'}
-          value={password}
-          onChangeText={setPassword}
-        />
-      </View>
-      <Text style={styles.input}>Forgot password?</Text>
-      <View style={styles.buttonContainer}>
-        <Pressable>
+      <Text style={[styles.input, styles.forgotText]}>Forgot password?</Text>
+      <Text style={styles.input}>Help</Text>
+      <Pressable
+        onPress={handleLogin}
+        style={({ pressed }) => [
+          styles.buttonContainer,
+          pressed ? { opacity: 0.75 } : {},
+        ]}
+      >
+        {isLoading ? (
+          <ActivityIndicator size={'small'} />
+        ) : (
           <Text style={styles.buttonText}>LogIn</Text>
-        </Pressable>
-      </View>
+        )}
+      </Pressable>
     </View>
   )
 }
@@ -70,20 +100,6 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontFamily: 'baloo-2',
   },
-  inputContainer: {
-    borderRadius: 10,
-    borderColor: 'white',
-    borderWidth: 1,
-    width: '100%',
-    height: 50,
-    justifyContent: 'center',
-    padding: 10,
-  },
-  input: {
-    color: 'white',
-    fontFamily: 'baloo-2',
-    fontSize: 20,
-  },
   logoContainer: {
     backgroundColor: 'white',
     width: 100,
@@ -94,6 +110,19 @@ const styles = StyleSheet.create({
     marginTop: 0,
   },
   logoText: {
+    fontSize: 20,
+  },
+  forgotText: {
+    marginTop: 10,
+  },
+  errorText: {
+    color: Colors.secondary,
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
+  input: {
+    color: 'white',
+    fontFamily: 'baloo-2',
     fontSize: 20,
   },
 })

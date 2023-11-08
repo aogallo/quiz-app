@@ -26,6 +26,7 @@ const styles = StyleSheet.create({
   questionText: {
     fontSize: 17,
     width: '75%',
+    fontFamily: 'baloo-2',
   },
   container: {
     flexDirection: 'row',

@@ -5,6 +5,8 @@ import FinishScreen from '../screens/FinishScreen'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { RootStackParamList } from '../App'
 import { View } from 'react-native'
+import { useSelector } from 'react-redux'
+import { RootState } from '../store/store'
 
 const Stack = createNativeStackNavigator<RootStackParamList>()
 
@@ -13,11 +15,13 @@ interface NavigatorProps {
 }
 
 const Navigator = ({ onLayout }: NavigatorProps) => {
-  const isSignedIn = false
+  const isAuthenticated = useSelector(
+    (state: RootState) => state.login.isAuthenticated,
+  )
   return (
     <View style={{ flex: 1 }} onLayout={onLayout}>
       <Stack.Navigator>
-        {isSignedIn ? (
+        {isAuthenticated ? (
           <>
             <Stack.Screen
               name='Welcome'
