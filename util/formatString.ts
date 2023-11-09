@@ -8,4 +8,5 @@ export const formatString = (value: string) => {
     .replace(/&oacute;/g, 'ó')
     .replace(/&uacute;/g, 'ú')
     .replace(/&eacute;/g, 'é')
+    .replace(/&deg;/g, '°')
 }

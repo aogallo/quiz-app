@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
     padding: 10,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: Colors.primary800,
+    backgroundColor: Colors.primary700,
   },
   title: {
     fontSize: 30,

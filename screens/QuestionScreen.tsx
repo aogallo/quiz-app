@@ -78,12 +78,12 @@ const QuestionScreen = ({ navigation }: QuestionScreenProps) => {
     navigation.setOptions({
       headerTitle: () => (
         <RemainingQuestions
-          counter={questionCounter + 1}
+          counter={isLoading ? 0 : questionCounter + 1}
           total={questions.length}
         />
       ),
     })
-  }, [questionCounter])
+  }, [questionCounter, isLoading])
 
   const handleFinish = () => {
     navigation.navigate('FinishQuiz')
