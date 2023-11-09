@@ -36,9 +36,15 @@ const loginSlice = createSlice({
       }
       state.isLoading = false
     },
+    logOut: (state) => {
+      state.isAuthenticated = false
+    },
+    cleanError: (state) => {
+      state.error = ''
+    },
   },
 })
 
-export const { logIn } = loginSlice.actions
+export const { logIn, logOut, cleanError } = loginSlice.actions
 
 export default loginSlice.reducer

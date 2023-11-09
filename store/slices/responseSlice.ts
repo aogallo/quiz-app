@@ -28,6 +28,7 @@ export const responseSlice = createSlice({
     },
     cleanResponse: (state) => {
       state.data = []
+      state.totalScore = 0
     },
   },
 })

@@ -1,5 +1,13 @@
 import type { NativeStackScreenProps } from '@react-navigation/native-stack'
-import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native'
+import { StatusBar } from 'expo-status-bar'
+import {
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+} from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootStackParamList } from '../App'
@@ -7,7 +15,9 @@ import QuestionResult from '../components/QuestionResult'
 import { Colors } from '../constants/Colors'
 import { cleanResponse } from '../store/slices/responseSlice'
 import { RootState } from '../store/store'
-import { StatusBar } from 'expo-status-bar'
+import CustomPressable from '../components/CustomPressable'
+import { logOut } from '../store/slices/loginSlice'
+import { useEffect } from 'react'
 
 type FinishScreenProps = NativeStackScreenProps<
   RootStackParamList,
@@ -26,33 +36,35 @@ const FinishScreen = ({ navigation }: FinishScreenProps) => {
     navigation.navigate('Welcome')
   }
 
+  useEffect(() => {
+    navigation.setOptions({
+      headerTitle: () => (
+        <Text style={styles.title}>{`Total score: ${totalScore} pts`}</Text>
+      ),
+    })
+  }, [])
+
   return (
     <>
       <StatusBar style='dark' />
-      <SafeAreaView style={styles.outerContainer}>
-        <ScrollView style={styles.container}>
-          <View style={styles.containerTitle}>
-            <Text style={styles.title}>Results</Text>
-            <Text style={[styles.title]}>Total score: {totalScore}</Text>
-          </View>
-          {responses.map((response) => (
-            <QuestionResult
-              key={response.question}
-              question={response.question}
-              result={response.result}
-            />
-          ))}
-          <Pressable
-            android_ripple={{ color: '#ccc' }}
-            onPress={handleFinish}
-            style={({ pressed }) =>
-              pressed ? [styles.button, styles.pressed] : styles.button
-            }
-          >
-            <Text style={styles.playAgainText}>Play again</Text>
-          </Pressable>
-        </ScrollView>
-      </SafeAreaView>
+      <ScrollView style={styles.container}>
+        {responses.map((response) => (
+          <QuestionResult
+            key={response.question}
+            question={response.question}
+            result={response.result}
+          />
+        ))}
+        <Pressable
+          android_ripple={{ color: '#ccc' }}
+          onPress={handleFinish}
+          style={({ pressed }) =>
+            pressed ? [styles.button, styles.pressed] : styles.button
+          }
+        >
+          <Text style={styles.playAgainText}>Play again</Text>
+        </Pressable>
+      </ScrollView>
     </>
   )
 }

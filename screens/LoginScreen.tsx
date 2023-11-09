@@ -6,17 +6,18 @@ import {
   Text,
   View,
 } from 'react-native'
+import CustomTextInput from '../components/CustomTextInput'
 import { Colors } from '../constants/Colors'
 import { useLogin } from '../hooks/useLogin'
-import CustomTextInput from '../components/CustomTextInput'
 
 const LoginScreen = () => {
-  const { isLoading, error, authentication } = useLogin()
+  const { isLoading, error, authentication, clean } = useLogin()
   const [inputErrors, setInputErrors] = useState({ username: '', password: '' })
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
 
   const handleLogin = () => {
+    clean()
     setInputErrors({ username: '', password: '' })
     if (username.trim() === '') {
       setInputErrors((prevState) => {

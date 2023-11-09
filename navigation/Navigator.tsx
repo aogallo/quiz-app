@@ -7,6 +7,7 @@ import { RootStackParamList } from '../App'
 import { View } from 'react-native'
 import { useSelector } from 'react-redux'
 import { RootState } from '../store/store'
+import LogoutButton from '../components/LogoutButton'
 
 const Stack = createNativeStackNavigator<RootStackParamList>()
 
@@ -36,7 +37,10 @@ const Navigator = ({ onLayout }: NavigatorProps) => {
             <Stack.Screen
               name='FinishQuiz'
               component={FinishScreen}
-              options={{ headerShown: false }}
+              options={{
+                headerBackVisible: false,
+                headerRight: () => <LogoutButton />,
+              }}
             />
           </>
         ) : (

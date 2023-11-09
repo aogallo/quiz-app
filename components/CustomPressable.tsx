@@ -10,6 +10,7 @@ interface CustomPressableProps {
 const CustomPressable = ({ text, onPress, style }: CustomPressableProps) => {
   return (
     <Pressable
+      android_ripple={{ color: '#ccc' }}
       onPress={onPress}
       style={({ pressed }) => [
         styles.container,

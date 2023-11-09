@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../store/store'
-import { logIn } from '../store/slices/loginSlice'
+import { cleanError, logIn, logOut } from '../store/slices/loginSlice'
 
 export const useLogin = () => {
   const dispatch = useDispatch()
@@ -12,10 +12,20 @@ export const useLogin = () => {
     dispatch(logIn({ username, password }))
   }
 
+  const clean = () => {
+    dispatch(cleanError())
+  }
+
+  const logout = () => {
+    dispatch(logOut())
+  }
+
   return {
     isLoading,
     isAuthenticated,
     error,
     authentication,
+    clean,
+    logout,
   }
 }

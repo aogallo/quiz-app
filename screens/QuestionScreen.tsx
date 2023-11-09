@@ -1,27 +1,19 @@
 import type { NativeStackScreenProps } from '@react-navigation/native-stack'
+import { StatusBar } from 'expo-status-bar'
 import { useEffect, useState } from 'react'
-import {
-  ActivityIndicator,
-  Alert,
-  Button,
-  Pressable,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native'
+import { ActivityIndicator, Alert, StyleSheet, Text, View } from 'react-native'
 import { useDispatch } from 'react-redux'
 import { RootStackParamList } from '../App'
+import AnswersList from '../components/AnswersList'
+import Card from '../components/Card'
+import CustomPressable from '../components/CustomPressable'
 import RemainingQuestions from '../components/RemainingQuestions'
-import ShowAnswers from '../components/ShowAnswers'
 import useApi from '../hooks/useApi'
 import {
   addResponse,
   cleanResponse,
   incrementScore,
 } from '../store/slices/responseSlice'
-import { Colors } from '../constants/Colors'
-import CustomPressable from '../components/CustomPressable'
-import Card from '../components/Card'
 
 export interface QuestionType {
   category: string
@@ -82,12 +74,24 @@ const QuestionScreen = ({ navigation }: QuestionScreenProps) => {
     }
   }
 
+  useEffect(() => {
+    navigation.setOptions({
+      headerTitle: () => (
+        <RemainingQuestions
+          counter={questionCounter + 1}
+          total={questions.length}
+        />
+      ),
+    })
+  }, [questionCounter])
+
   const handleFinish = () => {
     navigation.navigate('FinishQuiz')
   }
 
   return (
     <>
+      <StatusBar style='dark' />
       {isLoading ? (
         <View style={styles.indicatorContainer}>
           <ActivityIndicator size={'large'} />
@@ -95,16 +99,12 @@ const QuestionScreen = ({ navigation }: QuestionScreenProps) => {
         </View>
       ) : (
         <View style={styles.container}>
-          <RemainingQuestions
-            counter={questionCounter + 1}
-            total={questions.length}
-          />
           <Card>
             <Text style={styles.questionText}>
               {questions[questionCounter].question}
             </Text>
           </Card>
-          <ShowAnswers
+          <AnswersList
             onVerifyQuestion={handleVerifyQuestion}
             answered={answered}
             correctAnswer={questions[questionCounter].correct_answer}
