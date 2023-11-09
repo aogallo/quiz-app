@@ -9,4 +9,9 @@ export const formatString = (value: string) => {
     .replace(/&uacute;/g, 'ú')
     .replace(/&eacute;/g, 'é')
     .replace(/&deg;/g, '°')
+    .replace(/&Iacute;/g, 'Í')
+    .replace(/&Aacute;/g, 'Á')
+    .replace(/&Oacute;/g, 'Ó')
+    .replace(/&Uacute;/g, 'Ú')
+    .replace(/&Eacute;/g, 'É')
 }

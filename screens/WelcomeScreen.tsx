@@ -3,12 +3,19 @@ import { Pressable, StyleSheet, Text, View } from 'react-native'
 import { RootStackParamList } from '../App'
 import { Colors } from '../constants/Colors'
 import { StatusBar } from 'expo-status-bar'
+import CustomPressable from '../components/CustomPressable'
+import { useLogin } from '../hooks/useLogin'
 
 type WelcomeScreenProps = NativeStackScreenProps<RootStackParamList, 'Welcome'>
 
 const WelcomeScreen = ({ navigation }: WelcomeScreenProps) => {
+  const { logout } = useLogin()
   const handlePress = () => {
     navigation.navigate('Questions')
+  }
+
+  const handleLogout = () => {
+    logout()
   }
 
   return (
@@ -18,9 +25,14 @@ const WelcomeScreen = ({ navigation }: WelcomeScreenProps) => {
       <Text style={styles.subtitle}>
         When you are ready press the Start Quiz button
       </Text>
-      <Pressable onPress={handlePress} style={styles.button}>
-        <Text style={styles.commonText}>Start Quiz</Text>
-      </Pressable>
+      <View style={styles.containerButtons}>
+        <CustomPressable
+          text='Start Quiz'
+          onPress={handlePress}
+          style={styles.button}
+        />
+        <CustomPressable text='Log out' onPress={handleLogout} />
+      </View>
     </View>
   )
 }
@@ -33,6 +45,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: Colors.primary700,
   },
+  containerButtons: { gap: 10, width: '100%' },
   title: {
     fontSize: 30,
     color: 'white',
@@ -46,7 +59,6 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.secondary,
     marginTop: 20,
     padding: 10,
-    borderWidth: 1,
     borderRadius: 10,
   },
   commonText: {

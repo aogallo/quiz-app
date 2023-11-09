@@ -10,7 +10,7 @@
 Clone the repository
 
 ```bash
-git clone [Quiz App](https://github.com/aogallo/quiz-app.git)
+git clone https://github.com/aogallo/quiz-app.git
 ```
 
 Move to the folder
@@ -24,3 +24,29 @@ Install the dependencies
 ```bash
 npm install
 ```
+
+## Available Scripts
+
+In the directory, run the following command to start a development server
+
+```bash
+npm run start
+```
+
+## Screens
+
+### Login Screen
+
+![Login Screen](./gallery/LoginScreen.png)
+
+### Welcome Screen
+
+![Welcome Screen](./gallery/WelcomScreen.png)
+
+### Question Screen
+
+![Question Screen](./gallery/QuestionScreen.png)
+
+### Finish Screen
+
+![Finish Screen](./gallery/FinishScreen.png)
