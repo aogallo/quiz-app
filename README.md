@@ -37,7 +37,7 @@ npm run start
 
 ### Login Screen
 
-![Login Screen](./gallery/LoginScreen.png =250x250)
+![Login Screen](./gallery/LoginScreen.png | width=100 height=100)
 
 ### Welcome Screen
 
