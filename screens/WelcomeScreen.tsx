@@ -1,9 +1,9 @@
 import type { NativeStackScreenProps } from '@react-navigation/native-stack'
-import { Pressable, StyleSheet, Text, View } from 'react-native'
-import { RootStackParamList } from '../App'
-import { Colors } from '../constants/Colors'
 import { StatusBar } from 'expo-status-bar'
+import { StyleSheet, Text, View } from 'react-native'
+import { RootStackParamList } from '../App'
 import CustomPressable from '../components/CustomPressable'
+import { Colors } from '../constants/Colors'
 import { useLogin } from '../hooks/useLogin'
 
 type WelcomeScreenProps = NativeStackScreenProps<RootStackParamList, 'Welcome'>

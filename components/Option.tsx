@@ -58,9 +58,8 @@ const styles = StyleSheet.create({
     width: 383,
   },
   successAnswer: {
-    backgroundColor: Colors.primary600,
-    borderWidth: 1,
-    borderColor: Colors.primary600,
+    backgroundColor: '#A8DF8E', //Colors.primary700,
+    borderColor: Colors.primary700,
   },
   errorAnswer: {
     backgroundColor: Colors.danger,

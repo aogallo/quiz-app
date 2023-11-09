@@ -1,23 +1,13 @@
 import type { NativeStackScreenProps } from '@react-navigation/native-stack'
 import { StatusBar } from 'expo-status-bar'
-import {
-  Pressable,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-} from 'react-native'
-import { SafeAreaView } from 'react-native-safe-area-context'
+import { useEffect } from 'react'
+import { Pressable, ScrollView, StyleSheet, Text } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootStackParamList } from '../App'
 import QuestionResult from '../components/QuestionResult'
 import { Colors } from '../constants/Colors'
 import { cleanResponse } from '../store/slices/responseSlice'
 import { RootState } from '../store/store'
-import CustomPressable from '../components/CustomPressable'
-import { logOut } from '../store/slices/loginSlice'
-import { useEffect } from 'react'
 
 type FinishScreenProps = NativeStackScreenProps<
   RootStackParamList,
@@ -72,6 +62,7 @@ const FinishScreen = ({ navigation }: FinishScreenProps) => {
 const styles = StyleSheet.create({
   outerContainer: { flex: 1 },
   container: {
+    backgroundColor: Colors.primary700,
     padding: 10,
   },
   button: {

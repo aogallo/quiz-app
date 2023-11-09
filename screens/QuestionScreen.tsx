@@ -14,6 +14,7 @@ import {
   cleanResponse,
   incrementScore,
 } from '../store/slices/responseSlice'
+import { Colors } from '../constants/Colors'
 
 export interface QuestionType {
   category: string
@@ -94,7 +95,7 @@ const QuestionScreen = ({ navigation }: QuestionScreenProps) => {
       <StatusBar style='dark' />
       {isLoading ? (
         <View style={styles.indicatorContainer}>
-          <ActivityIndicator size={'large'} />
+          <ActivityIndicator size={'large'} color={'white'} />
           <Text style={styles.indicatorText}>Loading...</Text>
         </View>
       ) : (
@@ -128,7 +129,9 @@ const QuestionScreen = ({ navigation }: QuestionScreenProps) => {
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     padding: 20,
+    backgroundColor: Colors.primary700,
   },
   questionText: {
     fontWeight: 'bold',
@@ -140,12 +143,14 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   indicatorContainer: {
+    backgroundColor: Colors.primary700,
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
   },
   indicatorText: {
     fontSize: 25,
+    color: 'white',
   },
 })
 
