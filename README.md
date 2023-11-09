@@ -37,11 +37,11 @@ npm run start
 
 ### Login Screen
 
-<img src="https://github.com/aogallo/quiz-app/blob/main/gallery/LoginScreen.png" width="200" height="200" >
+<img src="https://github.com/aogallo/quiz-app/blob/main/gallery/LoginScreen.png" width="300" height="300" >
 
 ### Welcome Screen
 
-![Welcome Screen](./gallery/WelcomScreen.png)
+<img src="https://github.com/aogallo/quiz-app/blob/main/gallery/WelcomScreen.png" width="300" height="300" >
 
 ### Question Screen
 
