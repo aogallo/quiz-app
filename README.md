@@ -41,12 +41,12 @@ npm run start
 
 ### Welcome Screen
 
-<img src="https://github.com/aogallo/quiz-app/blob/main/gallery/WelcomScreen.png" width="300" height="300" >
+<img src="https://github.com/aogallo/quiz-app/blob/main/gallery/WelcomScreen.png" width="300" height="700" >
 
 ### Question Screen
 
-![Question Screen](./gallery/QuestionScreen.png)
+<img src="https://github.com/aogallo/quiz-app/blob/main/gallery/QuestionScreen.png" width="300" height="700" >
 
 ### Finish Screen
 
-![Finish Screen](./gallery/FinishScreen.png)
+<img src="https://github.com/aogallo/quiz-app/blob/main/gallery/FinishScreen.png" width="300" height="700" >
