@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderRadius: 10,
     height: 70,
-    width: 383,
+    width: 375,
   },
   successAnswer: {
     backgroundColor: '#A8DF8E', //Colors.primary700,

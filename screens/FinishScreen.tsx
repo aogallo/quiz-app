@@ -1,13 +1,21 @@
 import type { NativeStackScreenProps } from '@react-navigation/native-stack'
 import { StatusBar } from 'expo-status-bar'
 import { useEffect } from 'react'
-import { Pressable, ScrollView, StyleSheet, Text } from 'react-native'
+import {
+  FlatList,
+  Platform,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+} from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootStackParamList } from '../App'
 import QuestionResult from '../components/QuestionResult'
 import { Colors } from '../constants/Colors'
 import { cleanResponse } from '../store/slices/responseSlice'
 import { RootState } from '../store/store'
+import { SafeAreaView } from 'react-native-safe-area-context'
 
 type FinishScreenProps = NativeStackScreenProps<
   RootStackParamList,
@@ -36,15 +44,19 @@ const FinishScreen = ({ navigation }: FinishScreenProps) => {
 
   return (
     <>
+      {/* <SafeAreaView style={styles.outerContainer}> */}
       <StatusBar style='dark' />
       <ScrollView style={styles.container}>
-        {responses.map((response) => (
-          <QuestionResult
-            key={response.question}
-            question={response.question}
-            result={response.result}
-          />
-        ))}
+        <FlatList
+          data={responses}
+          keyExtractor={(item) => item.question}
+          renderItem={({ item }) => {
+            console.log(item)
+            return (
+              <QuestionResult question={item.question} result={item.result} />
+            )
+          }}
+        />
         <Pressable
           android_ripple={{ color: '#ccc' }}
           onPress={handleFinish}
@@ -55,6 +67,7 @@ const FinishScreen = ({ navigation }: FinishScreenProps) => {
           <Text style={styles.playAgainText}>Play again</Text>
         </Pressable>
       </ScrollView>
+      {/* </SafeAreaView> */}
     </>
   )
 }
@@ -70,7 +83,8 @@ const styles = StyleSheet.create({
     padding: 10,
     alignItems: 'center',
     borderRadius: 10,
-    marginVertical: 10,
+    marginTop: 10,
+    marginBottom: Platform.OS === 'ios' ? 40 : 10,
   },
   pressed: {
     opacity: 0.75,

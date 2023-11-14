@@ -8,13 +8,13 @@ import AnswersList from '../components/AnswersList'
 import Card from '../components/Card'
 import CustomPressable from '../components/CustomPressable'
 import RemainingQuestions from '../components/RemainingQuestions'
+import { Colors } from '../constants/Colors'
 import useApi from '../hooks/useApi'
 import {
   addResponse,
   cleanResponse,
   incrementScore,
 } from '../store/slices/responseSlice'
-import { Colors } from '../constants/Colors'
 
 export interface QuestionType {
   category: string
@@ -130,7 +130,7 @@ const QuestionScreen = ({ navigation }: QuestionScreenProps) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
+    padding: 10,
     backgroundColor: Colors.primary700,
   },
   questionText: {
