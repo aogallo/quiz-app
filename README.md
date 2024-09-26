@@ -33,6 +33,13 @@ In the directory, run the following command to start a development server
 npm run start
 ```
 
+## How to use
+
+In the Login Screen you can use the following credentials:
+
+- Username: adminUser
+- Password: 12345678
+
 ## Screens
 
 ### Login Screen
